@@ -116,7 +116,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: reports
-          path: sample/build/reports/shot/debug/Api${{ matrix.api-level }}/verification/
+          path: showkase-browser-testing/build/reports/androidTests/
           retention-days: 2
 
 ### Uncomment the jobs below if you want to generate and record screenshots. Once you download the
