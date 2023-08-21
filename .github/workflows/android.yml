@@ -114,9 +114,18 @@ jobs:
 
       - name: Upload screenshot testing report
         uses: actions/upload-artifact@v3
+        if: failure()
         with:
           name: reports
           path: showkase-browser-testing/build/reports/androidTests/
+          retention-days: 2
+
+      - name: Upload sample testing report
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: sample_reports
+          path: sample/build/reports/androidTests/connected/
           retention-days: 2
 
 ### Uncomment the jobs below if you want to generate and record screenshots. Once you download the
