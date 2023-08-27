@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  # 33.1.5
+  EMULATOR_BUILD_VERSION: 9997245
+
 jobs:
   build:
 
@@ -88,7 +92,7 @@ jobs:
       - name: Run UI Tests w/ KAPT
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          emulator-build: 7425822
+          emulator-build: ${{ env.EMULATOR_BUILD_VERSION }}
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
           arch: x86_64
@@ -97,7 +101,7 @@ jobs:
       - name: Run UI Tests w/ KSP
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          emulator-build: 7425822
+          emulator-build: ${{ env.EMULATOR_BUILD_VERSION }}
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
           arch: x86_64
@@ -106,7 +110,7 @@ jobs:
       - name: Run Screenshot Tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          emulator-build: 7425822
+          emulator-build: ${{ env.EMULATOR_BUILD_VERSION }}
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
           arch: x86_64
@@ -125,27 +129,27 @@ jobs:
         if: failure()
         with:
           name: sample_reports
-          path: sample/build/reports/androidTests/connected/
+          path: sample/build/reports/
           retention-days: 2
 
 ### Uncomment the jobs below if you want to generate and record screenshots. Once you download the
 ### artifact, place them under sample/screenshots/debug/
 
-#      - name: Record screenshots
-#        uses: reactivecircus/android-emulator-runner@v2
-#        with:
-#          emulator-build: 7425822
-#          api-level: ${{ matrix.api-level }}
-#          target: ${{ matrix.target }}
-#          arch: x86_64
-#          script: ./gradlew executeScreenshotTests -PdirectorySuffix=Api${{ matrix.api-level }} -Precord
-#
-#      - name: Upload screenshots in an artifact
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: Api${{ matrix.api-level }}
-#          path: sample/screenshots/debug/Api${{ matrix.api-level }}
-#          retention-days: 1
+      - name: Record screenshots
+        uses: reactivecircus/android-emulator-runner@v2
+        if: always()
+        with:
+          emulator-build: ${{ env.EMULATOR_BUILD_VERSION }}
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: x86_64
+          script: ./gradlew executeScreenshotTests -PdirectorySuffix=Api${{ matrix.api-level }} -Precord
 
-
-
+      - name: Upload screenshots in an artifact
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          emulator-build: ${{ env.EMULATOR_BUILD_VERSION }}
+          name: Api${{ matrix.api-level }}
+          path: sample/screenshots/debug/Api${{ matrix.api-level }}
+          retention-days: 1
