@@ -116,20 +116,12 @@ jobs:
           arch: x86_64
           script: ./gradlew executeScreenshotTests -PdirectorySuffix=Api${{ matrix.api-level }} -PprintBase64
 
-      - name: Upload screenshot testing report
+      - name: Upload test reports
         uses: actions/upload-artifact@v3
-        if: failure()
+        if: always()
         with:
-          name: reports
-          path: showkase-browser-testing/build/reports/androidTests/
-          retention-days: 2
-
-      - name: Upload sample testing report
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: sample_reports
-          path: sample/build/reports/
+          name: android-test-reports-${{ matrix.api-level }}
+          path: '**/build/reports/androidTests'
           retention-days: 2
 
 ### Uncomment the jobs below if you want to generate and record screenshots. Once you download the
