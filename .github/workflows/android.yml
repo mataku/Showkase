@@ -129,7 +129,7 @@ jobs:
         with:
           name: android-test-reports-${{ matrix.api-level }}
           path: '**/build/reports/androidTests'
-          retention-days: 2
+          retention-days: 7
 
 ### Uncomment the jobs below if you want to generate and record screenshots. Once you download the
 ### artifact, place them under sample/screenshots/debug/
