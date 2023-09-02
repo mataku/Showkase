@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 33
+    compileSdkVersion 32
     // Added to avoid this error -
     // Execution failed for task ':showkase-processor-testing:mergeDebugAndroidTestJavaResource'.
     // > A failure occurred while executing com.android.build.gradle.internal.tasks.Workers$ActionFacade
