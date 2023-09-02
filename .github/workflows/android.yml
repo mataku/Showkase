@@ -98,6 +98,9 @@ jobs:
           target: ${{ matrix.target }}
           arch: x86_64
           script: ./gradlew connectedCheck --no-daemon --stacktrace --debug
+          pre-emulator-launch-script: |
+            adb kill-server
+            adb start-server
 
       - name: Run UI Tests w/ KSP
         uses: reactivecircus/android-emulator-runner@v2
@@ -107,6 +110,9 @@ jobs:
           target: ${{ matrix.target }}
           arch: x86_64
           script: ./gradlew connectedCheck --no-daemon --stacktrace -PuseKsp=true --debug
+          pre-emulator-launch-script: |
+            adb kill-server
+            adb start-server
 
       - name: Run Screenshot Tests
         uses: reactivecircus/android-emulator-runner@v2
