@@ -97,7 +97,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
           arch: x86_64
-          script: ./gradlew connectedCheck --no-daemon --stacktrace --debug
+          script: ./gradlew connectedCheck --no-daemon --stacktrace
           pre-emulator-launch-script: |
             adb kill-server
             adb start-server
@@ -109,7 +109,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
           arch: x86_64
-          script: ./gradlew connectedCheck --no-daemon --stacktrace -PuseKsp=true --debug
+          script: ./gradlew connectedCheck --no-daemon --stacktrace -PuseKsp=true
           pre-emulator-launch-script: |
             adb kill-server
             adb start-server
